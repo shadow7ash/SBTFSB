@@ -57,11 +57,11 @@ async def start_command(client: Client, message: Message):
         if "verify_" in message.text:
             _, token = message.text.split("_", 1)
             if verify_status['verify_token'] != token:
-                return await message.reply("Sorry Bro, May be Your Token is Expired or Invalid. Please Click on Start & Try Again 🥺")
+                return await message.reply("Sorry Bro, May be Your Token is expired or invalid. Please refresh your token & Try Again 🥺")
             await update_verify_status(id, is_verified=True, verified_time=time.time())
             if verify_status["link"] == "":
                 reply_markup = None
-            await message.reply(f"Your Token is Successsfully Verified & Valid for 24 Hours ✅ Enjoy Buddy 😁🤟🏻", reply_markup=reply_markup, protect_content=True, quote=True)
+            await message.reply(f"Your Token is Successsfully Verified & Valid for 24 Hours ✅\n\nEnjoy Buddy 😁🤟🏻", reply_markup=reply_markup, protect_content=True, quote=True)
 
         elif len(message.text) > 7 and verify_status['is_verified']:
             try:
@@ -146,10 +146,10 @@ async def start_command(client: Client, message: Message):
                 await update_verify_status(id, verify_token=token, link="")
                 link = await get_shortlink(SHORTLINK_URL, SHORTLINK_API,f'https://telegram.dog/{client.username}?start=verify_{token}')
                 btn = [
-                    [InlineKeyboardButton("👉🏻 Start ", url=link)],
-                    [InlineKeyboardButton('👉🏻 Tutorial ', url=full_tut_url)]
+                    [InlineKeyboardButton(" Click Here To Refresh Token ", url=link)],
+                    [InlineKeyboardButton(' Need Help ? Watch Video Tutorial ', url=full_tut_url)]
                 ]
-                await message.reply(f"Your Ads Token is Expired, Please Refresh your Token & Try Again.\n\nToken Timeout: {get_exp_time(VERIFY_EXPIRE)}\n\nWhat is a Token?\n\nAfter Clicking on Start Button, You'll get a Shorten Link, After Skipping it you will be provided with a Ads Token Which Enables the Bot for you & is Valid for 24 Hours.", reply_markup=InlineKeyboardMarkup(btn), protect_content=True, quote=True)
+                await message.reply(f"Your Ads Token is expired, Please refresh your Token & try again.\n\nToken Timeout: 24 Hours ⏰\n\nWhat is a Token?\n\nIf you Pass the Ad one Time, You will get a token which enables you to use the bot for 24 hours.", reply_markup=InlineKeyboardMarkup(btn), protect_content=True, quote=True)
 
 # ... (rest of the code remains unchanged))
 
